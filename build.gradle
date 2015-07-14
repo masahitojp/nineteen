@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+ 
+group = 'me.masahito'
+version = "0.1.0-SNAPSHOT"
+sourceCompatibility = targetCompatibility = '1.8'
+repositories.mavenCentral()
+
+repositories {
+    maven {
+        // Atilika Open Source repository (for kuromoji)
+        url "http://www.atilika.org/nexus/content/repositories/atilika"
+    }
+}
+
+configurations {
+    provided
+}
+ 
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+    test {
+        compileClasspath += configurations.provided
+        runtimeClasspath += configurations.provided
+    }
+}
+ 
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+ 
+dependencies {
+    compile group: 'org.atilika.kuromoji', name: 'kuromoji', version: '0.7.7'
+    provided "org.projectlombok:lombok:1.16.4"
+    testCompile 'junit:junit:4.12'
+}
