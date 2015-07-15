@@ -1,3 +1,13 @@
 machine:
   java:
     version: oraclejdk8
+
+dependencies:
+  cache_directories:
+    - "~/.gradle"
+
+test:
+ override:
+   - ./gradlew clean build -i
+ pre:
+   - cp gradle.properties.sample gradle.properties
