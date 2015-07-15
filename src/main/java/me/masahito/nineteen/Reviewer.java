@@ -2,6 +2,9 @@ package me.masahito.nineteen;
 
 import org.atilika.kuromoji.Tokenizer;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Reviewer {
 
     public boolean judge(final String text) {
@@ -11,7 +14,7 @@ public class Reviewer {
 
     public static void main(String[] args) {
         final Tokenizer tokenizer = Tokenizer.builder().build();
-        final String haiku = "ちょっとまてちょっとまっておにいさーん";
+        final String haiku = "牡蠣食えば金が鳴るなり法隆寺";
         tokenizer
                 .tokenize(haiku)
                 .stream()
@@ -42,5 +45,13 @@ public class Reviewer {
                 } )
                 ;
 
+        if( Arrays.asList("あいう", "えおか").contains("えおか")) {
+            System.out.println("suc");
+
+        } else {
+            System.out.println("bbb");
+        }
+        final List<Integer> a =Arrays.asList(1,2,3).subList(0,1);
+        int i = 2;
     }
-}
+    }

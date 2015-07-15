@@ -13,7 +13,8 @@ public class Song {
     }
 
     public boolean valid() {
-        return nodes.stream().mapToInt(Node::getReadingLength).sum() ==17;
-        //return new Scanner(this.nodes, this.exactly).scan() != null;
+        //return nodes.stream().mapToInt(Node::getReadingLength).sum() ==17;
+        final List<List<Node>> result = new Scanner(this.nodes, this.exactly).scan();
+        return result != null;
     }
 }
