@@ -7,9 +7,7 @@ dependencies:
     - "~/.gradle"
 
 dependencies:
- pre:
-   - cp gradle.properties.sample gradle.properties
-
-test:
- override:
-   - ./gradlew clean build -i
+  override:
+    - ./gradlew dependencies
+  pre:
+    - cp gradle.properties.sample gradle.properties
