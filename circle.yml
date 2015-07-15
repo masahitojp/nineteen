@@ -6,8 +6,10 @@ dependencies:
   cache_directories:
     - "~/.gradle"
 
+dependencies:
+ pre:
+   - cp gradle.properties.sample gradle.properties
+
 test:
  override:
    - ./gradlew clean build -i
- pre:
-   - cp gradle.properties.sample gradle.properties
