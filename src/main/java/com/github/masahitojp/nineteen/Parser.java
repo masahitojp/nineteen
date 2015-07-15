@@ -1,4 +1,4 @@
-package me.masahito.nineteen;
+package com.github.masahitojp.nineteen;
 
 import org.atilika.kuromoji.Tokenizer;
 import java.util.List;
