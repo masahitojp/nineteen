@@ -2,6 +2,7 @@ package com.github.masahitojp.nineteen;
 
 import org.junit.Test;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -9,10 +10,10 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class ReviewerTest {
 
-    public String toTestString(final Song song) {
-        return song.getPhrases().stream()
+    public String toTestString(final Optional<Song> songOpt) {
+        return songOpt.map(song -> song.getPhrases().stream()
                 .map(list -> list.stream().map(Token::toString).collect(Collectors.joining()))
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(" "))).orElse("");
     }
 
     @Test
