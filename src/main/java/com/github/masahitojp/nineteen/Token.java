@@ -38,7 +38,8 @@ public class Token {
 
     private static List<String> types = Arrays.asList("助詞", "助動詞");
     private static List<String> subtype1s = Arrays.asList("非自立", "接尾");
-    private static List<String> rootForms =Arrays.asList("する", "できる");
+    private static List<String> rootForms = Arrays.asList("する", "できる");
+
     boolean firstOfPhrase() {
         if (types.contains(this.type())) {
             return false;
@@ -74,6 +75,7 @@ public class Token {
     }
 
     private List<String> lastOfIkkuTypes = Arrays.asList("名詞接続", "格助詞", "係助詞", "連体化", "接続助詞", "並立助詞", "副詞化", "数接続", "連体詞");
+
     boolean lastOfIkku() {
         if (lastOfIkkuTypes.contains(type())) {
             return false;
@@ -111,7 +113,7 @@ public class Token {
     }
 
     private String pronunciation() {
-        if (this.feature.length >=9 ) {
+        if (this.feature.length >= 9) {
             return this.feature[8];
         }
         return "";
@@ -123,7 +125,7 @@ public class Token {
         for (int i = 0; i < sb.length(); i++) {
             char c = sb.charAt(i);
             if (c >= 'ぁ' && c <= 'ん') {
-                sb.setCharAt(i, (char)(c - 'ぁ' + 'ァ'));
+                sb.setCharAt(i, (char) (c - 'ぁ' + 'ァ'));
             }
         }
         return sb.toString();

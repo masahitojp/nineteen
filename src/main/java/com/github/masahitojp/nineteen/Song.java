@@ -17,7 +17,7 @@ public class Song {
     }
 
     public synchronized List<List<Token>> getPhrases() {
-        if (this.phrases == null){
+        if (this.phrases == null) {
             this.phrases = new Scanner(this.tokens, this.exactly).scan();
         }
         return this.phrases;

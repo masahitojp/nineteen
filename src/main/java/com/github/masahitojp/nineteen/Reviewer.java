@@ -2,7 +2,10 @@ package com.github.masahitojp.nineteen;
 
 import org.atilika.kuromoji.Tokenizer;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Reviewer {
 
@@ -56,5 +59,6 @@ public class Reviewer {
                         System.out.println("fearures[8] 発音　　：" + features[8]);
                     }
                 });
+
     }
 }

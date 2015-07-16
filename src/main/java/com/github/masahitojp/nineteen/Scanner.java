@@ -3,12 +3,18 @@ package com.github.masahitojp.nineteen;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Scanner {
 
     private int count;
     private final List<Integer> rule = Arrays.asList(5, 7, 5);
     private final int ruleFullCount = rule.stream().mapToInt(s -> s).sum();
+    private final List<Integer> rulePhraseLengths = IntStream.rangeClosed(1, rule.size())
+            .map(i -> rule.subList(0, i).stream().mapToInt(Integer::intValue).sum())
+            .boxed()
+            .collect(Collectors.toList());
 
     final List<Token> tokens;
     final boolean exactly;
@@ -47,7 +53,7 @@ public class Scanner {
             return false;
         } else if (!token.elementOfIkku()) {
             return false;
-        } else if (Arrays.asList(5, 12, 17).contains(this.count) && !token.firstOfPhrase()) {
+        } else if (rulePhraseLengths.contains(this.count) && !token.firstOfPhrase()) {
             return false;
         } else if (token.getPronunciationLength() == maxConsumableLength() && !token.lastOfPhrase()) {
             return false;
