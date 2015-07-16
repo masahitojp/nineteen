@@ -5,7 +5,7 @@ import java.util.List;
 public class Song {
     final List<Node> nodes;
     final boolean exactly;
-
+    List<List<Node>> phrases;
 
     public Song(List<Node> nodes, boolean exactly) {
         this.nodes = nodes;
@@ -13,8 +13,13 @@ public class Song {
     }
 
     public boolean valid() {
-        //return nodes.stream().mapToInt(Node::getReadingLength).sum() ==17;
-        final List<List<Node>> result = new Scanner(this.nodes, this.exactly).scan();
-        return result != null;
+        return this.getPhrases() != null;
+    }
+
+    public synchronized List<List<Node>> getPhrases() {
+        if (this.phrases == null){
+            this.phrases = new Scanner(this.nodes, this.exactly).scan();
+        }
+        return this.phrases;
     }
 }

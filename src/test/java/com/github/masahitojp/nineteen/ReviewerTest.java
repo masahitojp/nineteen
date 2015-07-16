@@ -2,6 +2,8 @@ package com.github.masahitojp.nineteen;
 
 import org.junit.Test;
 
+import java.util.stream.Collectors;
+
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -24,7 +26,10 @@ public class ReviewerTest {
         final String haiku1 = "ああ古池や蛙飛び込む水の音";
         final Song song = reviewer.find(haiku1);
 
-        assertThat(song.toString(), is("古池や 蛙飛び込む 水の音"));
+        final String result = song.getPhrases().stream().map(list -> list.stream().map(Node::toString).collect(Collectors.joining()))
+                .collect(Collectors.joining(" "));
+
+        assertThat(result, is("古池や 蛙飛び込む 水の音"));
     }
 
 }
