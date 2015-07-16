@@ -1,11 +1,8 @@
 package com.github.masahitojp.nineteen.utils;
 
-import lombok.experimental.UtilityClass;
-
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 
-@UtilityClass
 public class StringUtils {
 
     static CharsetEncoder asciiEncoder =
