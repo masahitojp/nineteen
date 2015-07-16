@@ -9,6 +9,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
 public class ReviewerTest {
+
+    public String toTestString(final Song song) {
+        return song.getPhrases().stream().map(list -> list.stream().map(Node::toString).collect(Collectors.joining()))
+                .collect(Collectors.joining(" "));
+    }
+
     @Test
     public void judge() {
         final Reviewer reviewer = new Reviewer();
@@ -24,12 +30,13 @@ public class ReviewerTest {
     public void find() {
         final Reviewer reviewer = new Reviewer();
         final String haiku1 = "ああ古池や蛙飛び込む水の音";
-        final Song song = reviewer.find(haiku1);
 
-        final String result = song.getPhrases().stream().map(list -> list.stream().map(Node::toString).collect(Collectors.joining()))
-                .collect(Collectors.joining(" "));
+        assertThat(toTestString(reviewer.find(haiku1)), is("古池や 蛙飛び込む 水の音"));
+        assertThat(toTestString(reviewer.find("コーヒーの飲み方いつも同じだな")), is("コーヒーの 飲み方いつも 同じだな"));
 
-        assertThat(result, is("古池や 蛙飛び込む 水の音"));
+        assertThat(toTestString(reviewer.find("あーさめーざめーるたーびにーぼくのーぬけがーらがーそこーにいーてー")), is("コーヒーの 飲み方いつも 同じだな"));
+
+
     }
 
 }

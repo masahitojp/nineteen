@@ -92,7 +92,10 @@ public class Node {
     }
 
     private String pronunciation() {
-        return this.feature[8];
+        if (this.feature.length >=9 ) {
+            return this.feature[8];
+        }
+        return null;
     }
 
     // http://www7a.biglobe.ne.jp/~java-master/samples/string/ZenkakuHiraganaToZenkakuKatakana.html
