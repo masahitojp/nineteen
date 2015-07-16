@@ -4,9 +4,11 @@ nineteen
 Find a Senryu from text for Java SE 8.
 Inspired by ruby/ikku.
 
-## Getting Started
+Getting Started
+---------------
 
-### Write simple java application
+Write simple java application
++++++++++++++++++++++++++++++
 
 ```java
 import java.util.Optional;
@@ -30,7 +32,8 @@ public class Main {
 }
 ```
 
-### Add dependency to your build.gradle
+Add dependency to your build.gradle
++++++++++++++++++++++++++++++++++++
 
 ```groovy
 apply plugin: 'java'
@@ -42,7 +45,7 @@ dependencies {
 }
 
 sourceCompatibility = targetCompatibility = 1.8
-~~~
+```
 
 License
 -------
