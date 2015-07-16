@@ -34,7 +34,7 @@ public class ReviewerTest {
         assertThat(toTestString(reviewer.find(haiku1)), is("古池や 蛙飛び込む 水の音"));
         assertThat(toTestString(reviewer.find("コーヒーの飲み方いつも同じだな")), is("コーヒーの 飲み方いつも 同じだな"));
 
-        assertThat(toTestString(reviewer.find("あーさめーざめーるたーびにーぼくのーぬけがーらがーそこーにいーてー")), is("コーヒーの 飲み方いつも 同じだな"));
+        assertThat(toTestString(reviewer.find("心配事があるとなにも手につかなくなるのどうしたらいい？ — 座禅でもしてみるとか")), is("なにも手に つかなくなるの どうしたら"));
 
 
     }

@@ -44,6 +44,12 @@ public class Scanner {
     private boolean consume(final Node node, final List<List<Node>> phrases) {
         if (node.getReadingLength() > maxConsumableLength()) {
             return false;
+        } else if (!node.elementOfIkku()) {
+            return false;
+        } else if (Arrays.asList(5, 12, 17).contains(this.count) && !node.firstOfPhrase()) {
+            return false;
+        } else if (node.getReadingLength() == maxConsumableLength() && !node.lastOfPhrase()) {
+            return false;
         } else {
             if (phrases.size() <=this.phraseIndex()) {
                 phrases.add(new ArrayList<>());

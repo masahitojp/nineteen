@@ -28,8 +28,7 @@ public class Node {
         return m.replaceAll("").length();
     }
 
-    //
-    private boolean firstOfPhrase() {
+    boolean firstOfPhrase() {
         if (Arrays.asList("助詞", "助動詞").contains(this.type())) {
             return false;
         } else if (Arrays.asList("非自立", "接尾").contains(this.subtype1())) {
@@ -49,6 +48,14 @@ public class Node {
         } else {
             return true;
         }
+    }
+
+    boolean elementOfIkku() {
+        return this.token.isKnown();
+    }
+
+    boolean notElementOfIkku() {
+        return this.token.isUnknown();
     }
 
     boolean lastOfPhrase() {
