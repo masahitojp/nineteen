@@ -2,7 +2,6 @@ package com.github.masahitojp.nineteen;
 
 import org.atilika.kuromoji.Tokenizer;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Reviewer {
@@ -14,11 +13,11 @@ public class Reviewer {
 
     public Song find(final String text) {
 
-        List<Node> nodes = Parser.parse(text);
-        final int nodeSize = nodes.size();
-        for (int i = 0;i < nodeSize ;i++) {
+        List<Token> tokens = Parser.parse(text);
+        final int nodeSize = tokens.size();
+        for (int i = 0; i < nodeSize; i++) {
 
-            final List<Node> current = nodes.subList(i, nodeSize);
+            final List<Token> current = tokens.subList(i, nodeSize);
             final Song song = new Song(current, false);
             if (song.valid()) {
                 return song;
@@ -29,7 +28,7 @@ public class Reviewer {
 
     public static void main(String[] args) {
         final Tokenizer tokenizer = Tokenizer.builder().build();
-        final String haiku = "牡蠣食えば金が鳴るなり法隆寺";
+        final String haiku = "クソリプbotは下衆の極み";
         tokenizer
                 .tokenize(haiku)
                 .stream()
@@ -40,33 +39,23 @@ public class Reviewer {
                     System.out.println("表記  　：" + token.getSurfaceForm());
                     System.out.println("品詞  　：" + token.getPartOfSpeech());
                     System.out.println("原型　　：" + token.getBaseForm());
-                    System.out.println("読み　　："+token.getReading());
+                    System.out.println("読み　　：" + token.getReading());
                     System.out.println("既知語　：" + token.isKnown());
                     System.out.println("未知語　：" + token.isUnknown());
-                    System.out.println("ユーザ辞書？："+ token.isUser());
-                    System.out.println("すべてのfeature：" +token.getAllFeatures());
+                    System.out.println("ユーザ辞書？：" + token.isUser());
+                    System.out.println("すべてのfeature：" + token.getAllFeatures());
                     System.out.println("===token.getAllFeaturesArray()で取得できる配列の中身");
-                    System.out.println("fearures[0] 品詞１　：" + features[0] );
+                    System.out.println("fearures[0] 品詞１　：" + features[0]);
                     System.out.println("fearures[1] 品詞２　：" + features[1]);
-                    System.out.println("fearures[0] 品詞３　：" + features[2]);
-                    System.out.println("fearures[0] 品詞４　：" + features[3]);
-                    System.out.println("fearures[0] 活用形１：" + features[4]);
-                    System.out.println("fearures[0] 活用形２：" + features[5]);
-                    System.out.println("fearures[0] 原型　　：" + features[6]);
+                    System.out.println("fearures[2] 品詞３　：" + features[2]);
+                    System.out.println("fearures[3] 品詞４　：" + features[3]);
+                    System.out.println("fearures[4] 活用形１：" + features[4]);
+                    System.out.println("fearures[5] 活用形２：" + features[5]);
+                    System.out.println("fearures[6] 原型　　：" + features[6]);
                     if (features.length == 9) {
-                        System.out.println("fearures[0] 読み　　：" + features[7]);
-                        System.out.println("fearures[0] 発音　　：" + features[8]);
+                        System.out.println("fearures[7] 読み　　：" + features[7]);
+                        System.out.println("fearures[8] 発音　　：" + features[8]);
                     }
-                } )
-                ;
-
-        if( Arrays.asList("あいう", "えおか").contains("えおか")) {
-            System.out.println("suc");
-
-        } else {
-            System.out.println("bbb");
-        }
-        final List<Integer> a =Arrays.asList(1,2,3).subList(0,1);
-        int i = 2;
+                });
     }
-    }
+}

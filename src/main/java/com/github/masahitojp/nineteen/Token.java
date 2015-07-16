@@ -1,17 +1,18 @@
 package com.github.masahitojp.nineteen;
 
-import org.atilika.kuromoji.Token;
-
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Node {
-    private final Token token;
+public class Token {
+    private final org.atilika.kuromoji.Token token;
     private final String[] feature;
 
-    public Node(final Token token) {
+    private static final int a =2;
+
+    public Token(final org.atilika.kuromoji.Token token) {
 
         this.token = token;
         this.feature = token.getAllFeaturesArray();
@@ -28,12 +29,15 @@ public class Node {
         return m.replaceAll("").length();
     }
 
+    private static List<String> types = Arrays.asList("助詞", "助動詞");
+    private static List<String> subtype1s = Arrays.asList("非自立", "接尾");
+    private static List<String> rootForms =Arrays.asList("する", "できる");
     boolean firstOfPhrase() {
-        if (Arrays.asList("助詞", "助動詞").contains(this.type())) {
+        if (types.contains(this.type())) {
             return false;
-        } else if (Arrays.asList("非自立", "接尾").contains(this.subtype1())) {
+        } else if (subtype1s.contains(this.subtype1())) {
             return false;
-        } else if (this.subtype1().equals("自立") && Arrays.asList("する", "できる").contains(this.rootForm()))
+        } else if (this.subtype1().equals("自立") && rootForms.contains(this.rootForm()))
             return false;
         else {
             return true;
@@ -62,8 +66,9 @@ public class Node {
         return !type().equals("接頭詞");
     }
 
+    private List<String> lastOfIkkuTypes = Arrays.asList("名詞接続", "格助詞", "係助詞", "連体化", "接続助詞", "並立助詞", "副詞化", "数接続", "連体詞");
     boolean lastOfIkku() {
-        if (Arrays.asList("名詞接続", "格助詞", "係助詞", "連体化", "接続助詞", "並立助詞", "副詞化", "数接続", "連体詞").contains(type())) {
+        if (lastOfIkkuTypes.contains(type())) {
             return false;
         } else if (conjugation2().equals("連用タ接続")) {
             return false;
@@ -102,7 +107,7 @@ public class Node {
         if (this.feature.length >=9 ) {
             return this.feature[8];
         }
-        return null;
+        return "";
     }
 
     // http://www7a.biglobe.ne.jp/~java-master/samples/string/ZenkakuHiraganaToZenkakuKatakana.html

@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 
 public class ReviewerTest {
 
     public String toTestString(final Song song) {
-        return song.getPhrases().stream().map(list -> list.stream().map(Node::toString).collect(Collectors.joining()))
+        return song.getPhrases().stream()
+                .map(list -> list.stream().map(Token::toString).collect(Collectors.joining()))
                 .collect(Collectors.joining(" "));
     }
 

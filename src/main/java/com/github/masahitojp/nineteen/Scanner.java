@@ -9,24 +9,24 @@ public class Scanner {
     private int count;
     private final List<Integer> rule = Arrays.asList(5, 7, 5);
 
-    final List<Node> nodes;
+    final List<Token> tokens;
     final boolean exactly;
 
-    public Scanner(List<Node> nodes, boolean exactly) {
+    public Scanner(List<Token> tokens, boolean exactly) {
         this.count = 0;
-        this.nodes = nodes;
+        this.tokens = tokens;
         this.exactly = exactly;
     }
 
-    public List<List<Node>> scan() {
-        final List<List<Node>> phrases = new ArrayList<>();
+    public List<List<Token>> scan() {
+        final List<List<Token>> phrases = new ArrayList<>();
         if (hasValidFirstNode()) {
-            for(final Node node: this.nodes) {
-                if (consume(node, phrases)) {
+            for (final Token token : this.tokens) {
+                if (consume(token, phrases)) {
                     if (!this.exactly) {
                         if (satisfied(phrases)) {
                             return phrases;
-                            }
+                        }
                     }
                 } else {
                     return null;
@@ -41,21 +41,21 @@ public class Scanner {
         }
     }
 
-    private boolean consume(final Node node, final List<List<Node>> phrases) {
-        if (node.getReadingLength() > maxConsumableLength()) {
+    private boolean consume(final Token token, final List<List<Token>> phrases) {
+        if (token.getReadingLength() > maxConsumableLength()) {
             return false;
-        } else if (!node.elementOfIkku()) {
+        } else if (!token.elementOfIkku()) {
             return false;
-        } else if (Arrays.asList(5, 12, 17).contains(this.count) && !node.firstOfPhrase()) {
+        } else if (Arrays.asList(5, 12, 17).contains(this.count) && !token.firstOfPhrase()) {
             return false;
-        } else if (node.getReadingLength() == maxConsumableLength() && !node.lastOfPhrase()) {
+        } else if (token.getReadingLength() == maxConsumableLength() && !token.lastOfPhrase()) {
             return false;
         } else {
-            if (phrases.size() <=this.phraseIndex()) {
+            if (phrases.size() <= this.phraseIndex()) {
                 phrases.add(new ArrayList<>());
             }
-            phrases.get(this.phraseIndex()).add(node);
-            this.count += node.getReadingLength();
+            phrases.get(this.phraseIndex()).add(token);
+            this.count += token.getReadingLength();
             return true;
         }
     }
@@ -65,9 +65,9 @@ public class Scanner {
     }
 
     private int phraseIndex() {
-        int result = rule.size() -1;
-        for (int i = 0 ;i <rule.size(); i++) {
-            if( this.count < rule.subList(0, i + 1).stream().mapToInt(z -> z).sum()) {
+        int result = rule.size() - 1;
+        for (int i = 0; i < rule.size(); i++) {
+            if (this.count < rule.subList(0, i + 1).stream().mapToInt(z -> z).sum()) {
                 result = i;
                 break;
             }
@@ -76,25 +76,22 @@ public class Scanner {
         return result;
     }
 
-    boolean satisfied(final List<List<Node>> phrases) {
+    boolean satisfied(final List<List<Token>> phrases) {
         return hasFullCount() && hasValidLastNode(phrases);
     }
 
-    private  boolean hasFullCount() {
+    private boolean hasFullCount() {
         return this.count == 17;
     }
+
     private boolean hasValidFirstNode() {
-        if (this.nodes.size() > 0) {
-            return this.nodes.get(0).firstOfIkku();
-        } else {
-            return false;
-        }
+        return this.tokens.size() > 0 && this.tokens.get(0).firstOfIkku();
     }
 
-    private boolean  hasValidLastNode(final List<List<Node>> phrases) {
+    private boolean hasValidLastNode(final List<List<Token>> phrases) {
         if (phrases.size() > 0) {
             final int size = Math.max(0, phrases.size() - 1);
-            final int last = Math.max(0, phrases.get(size).size() -1);
+            final int last = Math.max(0, phrases.get(size).size() - 1);
             return phrases.get(size).get(last).lastOfIkku();
         } else {
             return false;

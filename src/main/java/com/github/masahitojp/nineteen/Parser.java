@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 public class Parser {
     protected static Tokenizer tokenizer = Tokenizer.builder().build();
 
-    public static List<Node> parse(final String text) {
-        return tokenizer.tokenize(text).stream().map(Node::new)
+    public static List<Token> parse(final String text) {
+        return tokenizer.tokenize(text).stream().map(Token::new)
                 .collect(Collectors.toList());
     }
 }
