@@ -12,6 +12,21 @@ public class Reviewer {
         return song.valid();
     }
 
+    public Song find(final String text) {
+
+        List<Node> nodes = Parser.parse(text);
+        final int nodeSize = nodes.size();
+        for (int i = 0;i < nodeSize ;i++) {
+
+            final List<Node> current = nodes.subList(i, nodeSize);
+            final Song song = new Song(current, false);
+            if (song.valid()) {
+                return song;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         final Tokenizer tokenizer = Tokenizer.builder().build();
         final String haiku = "牡蠣食えば金が鳴るなり法隆寺";

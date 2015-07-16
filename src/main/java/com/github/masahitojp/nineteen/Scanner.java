@@ -23,10 +23,10 @@ public class Scanner {
         if (hasValidFirstNode()) {
             for(final Node node: this.nodes) {
                 if (consume(node, phrases)) {
-                    if (satisfied(phrases)) {
-                        if (!this.exactly) {
+                    if (!this.exactly) {
+                        if (satisfied(phrases)) {
                             return phrases;
-                        }
+                            }
                     }
                 } else {
                     return null;
