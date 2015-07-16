@@ -16,7 +16,6 @@ public class Reviewer {
         List<Token> tokens = Parser.parse(text);
         final int nodeSize = tokens.size();
         for (int i = 0; i < nodeSize; i++) {
-
             final List<Token> current = tokens.subList(i, nodeSize);
             final Song song = new Song(current, false);
             if (song.valid()) {

@@ -1,5 +1,7 @@
 package com.github.masahitojp.nineteen;
 
+import com.github.masahitojp.nineteen.utils.StringUtils;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -10,23 +12,28 @@ public class Token {
     private final org.atilika.kuromoji.Token token;
     private final String[] feature;
 
-    private static final int a =2;
-
     public Token(final org.atilika.kuromoji.Token token) {
-
         this.token = token;
         this.feature = token.getAllFeaturesArray();
     }
 
-    public final int getReadingLength() {
-        String reading = token.getReading();
-        if (reading == null) {
-            reading = zenkakuHiraganaToZenkakuKatakana(token.getSurfaceForm());
-        }
+    private Integer pronunciationLength;
 
-        Pattern p = Pattern.compile("[^アイウエオカ-モヤユヨラ-ロワヲンヴー]");
-        Matcher m = p.matcher(reading);
-        return m.replaceAll("").length();
+    public final synchronized int getPronunciationLength() {
+        if (this.pronunciationLength == null) {
+            String reading = pronunciation();
+            if (reading.equals("")) {
+                final String surfaceForm = token.getSurfaceForm();
+                if (surfaceForm != null && !StringUtils.isPureAscii(surfaceForm)) {
+                    reading = zenkakuHiraganaToZenkakuKatakana(token.getSurfaceForm());
+                }
+            }
+
+            Pattern p = Pattern.compile("[^アイウエオカ-モヤユヨラ-ロワヲンヴー]");
+            Matcher m = p.matcher(reading);
+            this.pronunciationLength = m.replaceAll("").length();
+        }
+        return pronunciationLength;
     }
 
     private static List<String> types = Arrays.asList("助詞", "助動詞");

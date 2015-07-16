@@ -8,6 +8,7 @@ public class Scanner {
 
     private int count;
     private final List<Integer> rule = Arrays.asList(5, 7, 5);
+    private final int ruleFullCount = rule.stream().mapToInt(s -> s).sum();
 
     final List<Token> tokens;
     final boolean exactly;
@@ -42,20 +43,20 @@ public class Scanner {
     }
 
     private boolean consume(final Token token, final List<List<Token>> phrases) {
-        if (token.getReadingLength() > maxConsumableLength()) {
+        if (token.getPronunciationLength() > maxConsumableLength()) {
             return false;
         } else if (!token.elementOfIkku()) {
             return false;
         } else if (Arrays.asList(5, 12, 17).contains(this.count) && !token.firstOfPhrase()) {
             return false;
-        } else if (token.getReadingLength() == maxConsumableLength() && !token.lastOfPhrase()) {
+        } else if (token.getPronunciationLength() == maxConsumableLength() && !token.lastOfPhrase()) {
             return false;
         } else {
             if (phrases.size() <= this.phraseIndex()) {
                 phrases.add(new ArrayList<>());
             }
             phrases.get(this.phraseIndex()).add(token);
-            this.count += token.getReadingLength();
+            this.count += token.getPronunciationLength();
             return true;
         }
     }
@@ -81,7 +82,7 @@ public class Scanner {
     }
 
     private boolean hasFullCount() {
-        return this.count == 17;
+        return this.count == ruleFullCount;
     }
 
     private boolean hasValidFirstNode() {
