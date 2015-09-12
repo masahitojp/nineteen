@@ -9,13 +9,6 @@ version = "0.0.2"
 sourceCompatibility = targetCompatibility = '1.8'
 repositories.mavenCentral()
 
-repositories {
-    maven {
-        // Atilika Open Source repository (for kuromoji)
-        url "http://www.atilika.org/nexus/content/repositories/atilika"
-    }
-}
-
 configurations {
     provided
 }
@@ -37,7 +30,7 @@ idea {
 }
  
 dependencies {
-    compile "org.atilika.kuromoji:kuromoji:0.7.7"
+    compile "com.atilika.kuromoji:kuromoji-ipadic:0.9.0"
     provided "org.projectlombok:lombok:1.16.4"
     testCompile 'junit:junit:4.12'
 }
@@ -74,11 +67,11 @@ uploadArchives {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
+                authentication(userName: hasProperty('ossrhUsername')?ossrhUsername:'', password: hasProperty('ossrhPassword')?ossrhPassword:'')
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
+                authentication(userName: hasProperty('ossrhUsername')?ossrhUsername:'', password: hasProperty('ossrhPassword')?ossrhPassword:'')
             }
 
             pom.project {
