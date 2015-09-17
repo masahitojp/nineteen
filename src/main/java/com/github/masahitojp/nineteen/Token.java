@@ -9,10 +9,10 @@ import java.util.regex.Pattern;
 
 
 public class Token {
-    private final org.atilika.kuromoji.Token token;
+    private final com.atilika.kuromoji.ipadic.Token token;
     private final String[] feature;
 
-    public Token(final org.atilika.kuromoji.Token token) {
+    public Token(final com.atilika.kuromoji.ipadic.Token token) {
         this.token = token;
         this.feature = token.getAllFeaturesArray();
     }
@@ -23,9 +23,9 @@ public class Token {
         if (this.pronunciationLength == null) {
             String reading = pronunciation();
             if (reading.equals("")) {
-                final String surfaceForm = token.getSurfaceForm();
+                final String surfaceForm = token.getSurface();
                 if (surfaceForm != null && !StringUtils.isPureAscii(surfaceForm)) {
-                    reading = zenkakuHiraganaToZenkakuKatakana(token.getSurfaceForm());
+                    reading = zenkakuHiraganaToZenkakuKatakana(token.getSurface());
                 }
             }
 
@@ -67,7 +67,7 @@ public class Token {
     }
 
     boolean notElementOfIkku() {
-        return this.token.isUnknown();
+        return !this.token.isKnown();
     }
 
     boolean lastOfPhrase() {
@@ -133,6 +133,6 @@ public class Token {
 
     @Override
     public String toString() {
-        return token.getSurfaceForm();
+        return token.getSurface();
     }
 }
