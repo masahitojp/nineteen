@@ -21,9 +21,12 @@ public class ReviewerTest {
         final Reviewer reviewer = new Reviewer();
         final String haiku1 = "古池や蛙飛び込む水の音";
         final String haiku2 = "柿食えば鐘が鳴るなり法隆寺";
+
+        final String haiku3 = "カピバラのご飯はいつも魚だね";
         final String notHaiku = "毎日が日曜日";
         assertThat(reviewer.judge(haiku1), is(true));
         assertThat(reviewer.judge(haiku2), is(true));
+        assertThat(reviewer.judge(haiku3), is(true));
         assertThat(reviewer.judge(notHaiku), is(false));
     }
 

@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-public class Token {
-    private final com.atilika.kuromoji.ipadic.Token token;
+public final class Token {
+    private final com.atilika.kuromoji.unidic.Token token;
     private final String[] feature;
 
-    public Token(final com.atilika.kuromoji.ipadic.Token token) {
+    public Token(final com.atilika.kuromoji.unidic.Token token) {
         this.token = token;
         this.feature = token.getAllFeaturesArray();
     }
@@ -33,7 +32,7 @@ public class Token {
             Matcher m = p.matcher(reading);
             this.pronunciationLength = m.replaceAll("").length();
         }
-        return pronunciationLength;
+        return this.pronunciationLength;
     }
 
     private static List<String> types = Arrays.asList("助詞", "助動詞");
@@ -113,10 +112,7 @@ public class Token {
     }
 
     private String pronunciation() {
-        if (this.feature.length >= 9) {
-            return this.feature[8];
-        }
-        return "";
+        return token.getPronunciation();
     }
 
     // http://www7a.biglobe.ne.jp/~java-master/samples/string/ZenkakuHiraganaToZenkakuKatakana.html
