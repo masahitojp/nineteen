@@ -62,11 +62,9 @@ public final class Token {
     }
 
     boolean elementOfIkku() {
-        return this.token.isKnown();
-    }
-
-    boolean notElementOfIkku() {
-        return !this.token.isKnown();
+        return this.token.isKnown() &&
+                !this.token.getPartOfSpeechLevel1().equals("補助記号") &&
+                !(this.token.getPartOfSpeechLevel1().equals("記号") && this.token.getPartOfSpeechLevel2().equals("文字"));
     }
 
     boolean lastOfPhrase() {
