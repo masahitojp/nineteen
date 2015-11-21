@@ -10,7 +10,7 @@ public class Reviewer {
      * @return [true, false]
      */
     public boolean judge(final String text) {
-        final Song song = new Song(Parser.parse(text), true);
+        final Song song = new Song(Parser.INSTANCE.parse(text), true);
         return song.valid();
     }
 
@@ -21,13 +21,13 @@ public class Reviewer {
      */
     public Optional<Song> find(final String text) {
 
-        final List<Token> tokens = Parser.parse(text);
+        final List<Token> tokens = Parser.INSTANCE.parse(text);
         final int nodeSize = tokens.size();
         for (int i = 0; i < nodeSize; i++) {
             final List<Token> current = tokens.subList(i, nodeSize);
             final Song song = new Song(current, false);
             if (song.valid()) {
-                return Optional.of(song);
+                return Optional.ofNullable(song);
             }
         }
         return Optional.empty();
