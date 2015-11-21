@@ -21,7 +21,7 @@ public class Reviewer {
      */
     public Optional<Song> find(final String text) {
 
-        List<Token> tokens = Parser.parse(text);
+        final List<Token> tokens = Parser.parse(text);
         final int nodeSize = tokens.size();
         for (int i = 0; i < nodeSize; i++) {
             final List<Token> current = tokens.subList(i, nodeSize);

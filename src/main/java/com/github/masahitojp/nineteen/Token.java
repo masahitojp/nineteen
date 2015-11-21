@@ -35,6 +35,10 @@ public final class Token {
         return this.pronunciationLength;
     }
 
+    String getSpeechLevel() {
+        return this.token.getPartOfSpeechLevel1() + this.token.getPartOfSpeechLevel2();
+    }
+
     private static List<String> types = Arrays.asList("助詞", "助動詞");
     private static List<String> subtype1s = Arrays.asList("非自立", "接尾");
     private static List<String> rootForms = Arrays.asList("する", "できる");

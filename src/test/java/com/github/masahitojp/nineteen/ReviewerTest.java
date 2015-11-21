@@ -28,6 +28,7 @@ public class ReviewerTest {
         final String haiku10 = "次世代かっぴはtypoを";
         final String haiku11 = "/zc?k=201511";
         final String notHaiku = "毎日が日曜日";
+        final String haiku12 = "二二二二二二二二二二二二二二二二ノ";
 
         assertThat(reviewer.judge(haiku1), is(true));
         assertThat(reviewer.judge(haiku2), is(true));
@@ -36,6 +37,7 @@ public class ReviewerTest {
         assertThat(reviewer.judge(haiku10), is(false));
         assertThat(reviewer.judge(haiku11), is(false));
         assertThat(reviewer.judge(notHaiku), is(false));
+        assertThat(reviewer.judge(haiku12), is(false));
     }
 
     @Test
