@@ -60,6 +60,8 @@ public final class Token {
             return false;
         } else if (this.type().equals("記号") && !Arrays.asList("括弧開", "括弧閉").contains(this.subtype1())) {
             return false;
+        } else if (this.type().equals("感動詞") && this.subtype1().equals("フィラー")) {
+            return false;
         } else {
             return true;
         }
@@ -72,7 +74,7 @@ public final class Token {
     }
 
     boolean lastOfPhrase() {
-        return !type().equals("接頭詞");
+        return !type().equals("接頭詞") && !type().equals("接頭辞");
     }
 
     private List<String> lastOfIkkuTypes = Arrays.asList("名詞接続", "格助詞", "係助詞", "連体化", "接続助詞", "並立助詞", "副詞化", "数接続", "連体詞");
