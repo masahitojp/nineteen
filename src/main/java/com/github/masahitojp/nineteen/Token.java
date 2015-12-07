@@ -74,7 +74,7 @@ public final class Token {
     }
 
     boolean lastOfPhrase() {
-        return !type().equals("接頭詞") && !type().equals("接頭辞");
+        return !type().equals("接頭詞") && !type().equals("接頭辞") && !subtype1().equals("数詞");
     }
 
     private List<String> lastOfIkkuTypes = Arrays.asList("名詞接続", "格助詞", "係助詞", "連体化", "接続助詞", "並立助詞", "副詞化", "数接続", "連体詞");
