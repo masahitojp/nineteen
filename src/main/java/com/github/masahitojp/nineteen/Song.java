@@ -1,8 +1,7 @@
 package com.github.masahitojp.nineteen;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Song {
@@ -32,11 +31,14 @@ public class Song {
     }
     private boolean checkSame() {
         if (this.tokens.size() > 0) {
-            final Map<String, Long> counted =
+            final Long counted =
                     this.tokens.subList(1, Math.min(5, Math.max(0, this.tokens.size() - 1)))
                     .stream()
-                    .collect(Collectors.groupingBy(Token::getSpeechLevel, Collectors.counting()));
-            return Collections.max(counted.values()) > 3;
+                    .collect(Collectors.groupingBy(Token::getSpeechLevel, Collectors.counting()))
+                            .values()
+                            .stream()
+                            .max(Comparator.naturalOrder()).orElse(0L);
+            return counted > 3;
         } else {
             return false;
         }
