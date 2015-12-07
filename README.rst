@@ -43,7 +43,7 @@ Add dependency to your build.gradle
   repositories.mavenCentral()
 
   dependencies {
-	compile 'com.github.masahitojp:nineteen:0.0.2'
+	compile 'com.github.masahitojp:nineteen:0.0.6'
   }
 
   sourceCompatibility = targetCompatibility = 1.8
